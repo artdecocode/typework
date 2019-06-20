@@ -1,5 +1,9 @@
 ## 21 June 2019
 
+### [0.1.0](https://github.com/artdecocode/typework/compare/v0.0.0-pre...v0.1.0)
+
+- [package] Publish first undocumented script.
+
 ### 0.0.0-pre
 
 - Create `typework` with _[`My New Package`](https://mnpjs.org)_
