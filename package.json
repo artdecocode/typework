@@ -1,7 +1,7 @@
 {
   "name": "typework",
   "version": "0.1.0",
-  "description": "Manage And Vendor JSDoc Types.",
+  "description": "Manage And Vendor JSDoc Types. Import Typedefs Into Target Projects.",
   "scripts": {
     "t": "zoroaster -a",
     "test": "yarn t test/spec test/mask",
@@ -29,7 +29,9 @@
     "url": "git://github.com/artdecocode/typework.git"
   },
   "keywords": [
-    "typework"
+    "typework",
+    "jsdoc",
+    "typedef"
   ],
   "author": "Anton <anton@adc.sh>",
   "license": "MIT",
