@@ -1,9 +1,12 @@
-/* alanode example/ */
-import typework from '../src'
+const _Koa = require('./koa')
 
-(async () => {
-  const res = await typework({
-    text: 'example',
-  })
-  console.log(res)
-})()
+class Koa extends _Koa {
+  /**
+   * Initialize a new `Application`.
+   */
+  constructor() {
+    super()
+  }
+}
+
+module.exports = Koa

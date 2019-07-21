@@ -2,7 +2,7 @@
 
 %NPM: typework%
 
-`typework` is Manage And Vendor JSDoc Types.
+`typework` is used to Manage And Vendor JSDoc Types.
 
 ```sh
 yarn add typework

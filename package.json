@@ -16,7 +16,8 @@
     "d1": "typal types/index.js src -c -t types/index.xml",
     "externs": "typal externs.js",
     "build": "yarn-s d b doc",
-    "e": "alanode"
+    "e": "alanode",
+    "example": "typework example/config.json"
   },
   "files": [
     "compile"
@@ -37,6 +38,7 @@
   },
   "homepage": "https://github.com/artdecocode/typework#readme",
   "devDependencies": {
+    "@typedefs/goa": "^0.0.4",
     "@wrote/wrote": "^1.2.3",
     "alamode": "^2.3.4",
     "documentary": "^1.27.7",
