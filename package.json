@@ -1,6 +1,6 @@
 {
   "name": "typework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Manage And Vendor JSDoc Types. Import Typedefs Into Target Projects.",
   "scripts": {
     "t": "zoroaster -a",
