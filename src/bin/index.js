@@ -4,7 +4,28 @@ import resolveDep from 'resolve-dependency'
 import { read, write, ensurePath } from '@wrote/wrote'
 import { Replaceable } from 'restream'
 
-const config = require(resolve(process.argv[2]))
+const tryRequire = (path) => {
+  let r
+  try {
+    r = require(resolve(path))
+  } catch (err) {
+    const p = join(process.cwd(), path)
+    r = require(resolve(p))
+  }
+  return r
+}
+// if the script is not in the same cwd, i.e., typework-dev
+const tryResolve = (path) => {
+  try {
+    return require.resolve()
+  } catch (err) {
+    const p = join(process.cwd(), 'node_modules', path)
+    return require.resolve(p)
+  }
+}
+const [,, configPath] = process.argv
+
+const config = tryRequire(configPath)
 
 const { 'entry': entry, 'js': js, 'destination': destination } = config
 
@@ -14,7 +35,7 @@ try {
   file = readFileSync(entry).toString()
 } catch (err) {
   if (err.code != 'ENOENT') throw err
-  location = require.resolve(entry)
+  location = tryResolve(entry)
   file = readFileSync(location).toString()
 }
 const dir = dirname(location)
@@ -30,7 +51,7 @@ const jsFile = readFileSync(js).toString()
 
 const IMPORT_RE = /import\(['"](\..+?)['"]\)/g
 
-;(async () => {
+const run = async () => {
   let cache = {}
   const repl = new Replaceable({
     re: IMPORT_RE,
@@ -58,12 +79,21 @@ const IMPORT_RE = /import\(['"](\..+?)['"]\)/g
       }
       // update referencedFile
       const content = await read(dep)
+      const lines = content.split(/\n/g)
       const depDir = dirname(dep)
       const depRepl = new Replaceable({
         re: IMPORT_RE,
-        async replacement(m2, loc2) {
+        async replacement(m2, loc2, i) {
           const referenced = join(depDir, loc2)
-          const { path: referencedPath } = await resolveDep(referenced)
+          let referencedPath
+          try {
+            ({ path: referencedPath } = await resolveDep(referenced))
+          } catch (err) {
+            this.brake()
+            const { line, column } = getLineAndColumn(lines, i, 0)
+            console.log('Could not resolve %s from %s:%s:%s', loc2, dep, line, column)
+            throw err
+          }
           let newRef = relative(dirname(fileDestination), js)
           if (referencedPath == location) {
             newRef = newRef.replace(/(\/index)?\.js$/, '')
@@ -98,4 +128,28 @@ const IMPORT_RE = /import\(['"](\..+?)['"]\)/g
   const newJsFile = jsFile.replace(/\/\* typework \*\/\n(?:([^\n][\s\S]+?\n))?$/, `/* typework */
 ${toAdd}`)
   await write(js, newJsFile)
+}
+
+/**
+ * @param {!Array<string>} lines
+ * @param {number} position
+ * @param {number} offset
+ */
+const getLineAndColumn = (lines, position, offset = 0) => {
+  let line = 0, current = 0
+  while (current < position) {
+    const s = lines[line]
+    current += s.length
+    line++
+  }
+  return { line, column: current - position }
+}
+
+(async () => {
+  try {
+    await run()
+  } catch (err) {
+    if (!process.env['DEBUG']) console.log(err.message)
+    else console.error(err.stack)
+  }
 })()

@@ -34,6 +34,21 @@
       "skipFiles": [
         "<node_internals>/**/*.js"
       ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Typework",
+      "program": "${workspaceFolder}/../../idiocc/koa/node_modules/.bin/alanode",
+      "console": "integratedTerminal",
+      "args": [
+        "../../adc/typework/src/bin",
+        "types/config.json"
+      ],
+      "cwd": "${workspaceFolder}/../../idiocc/koa",
+      "skipFiles": [
+        "<node_internals>/**/*.js"
+      ]
     }
   ]
 }

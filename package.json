@@ -7,7 +7,7 @@
     "test": "yarn t test/spec test/mask",
     "spec": "yarn t test/spec",
     "mask": "yarn t test/mask",
-    "depack": "depack-dev src/bin -o depack -a -c -s -S -p",
+    "compile": "depack-dev src/bin -o compile -a -c -s -S -p",
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc -o README.md",
@@ -19,9 +19,9 @@
     "e": "alanode"
   },
   "files": [
-    "depack"
+    "compile"
   ],
-  "bin": "depack/index.js",
+  "bin": "compile/index.js",
   "externs": "types/externs.js",
   "repository": {
     "type": "git",
@@ -38,8 +38,8 @@
   "homepage": "https://github.com/artdecocode/typework#readme",
   "devDependencies": {
     "@wrote/wrote": "^1.2.3",
-    "alamode": "^2.1.2",
-    "documentary": "^1.27.2",
+    "alamode": "^2.3.4",
+    "documentary": "^1.27.7",
     "eslint-config-artdeco": "1.0.1",
     "resolve-dependency": "^1.0.3",
     "restream": "^3.7.1",
