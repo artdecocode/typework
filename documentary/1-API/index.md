@@ -16,6 +16,8 @@ The config must include 3 properties:
 
 Upon run, the types' JSDoc declarations are copied from the entry into the source _JS_ file, so that they become a native part of the project. All other files found under relative import paths, will be placed into the _Destination_ folder.
 
+The example below demonstrates, how types written for the [_Goa_](https://github.com/idiocc/goa) package and published as [`@typedefs/goa`](https://npmjs.com/package/@typedefs/goa), were imported into the [_Goa/Koa_](https://github.com/idiocc/koa) project, so that they can be distributed without having to install `@typedefs/goa` from NPM as a production dependency. This is a strategy for distribution of JSDoc types.
+
 <table>
 <tr><td>
  <a href="https://github.com/idiocc/goa/blob/master/types/index.js">entry.js</a></td>

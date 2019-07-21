@@ -3,6 +3,7 @@
 ### [0.1.1](https://github.com/artdecocode/typework/compare/v0.1.0...v0.1.1)
 
 - [feature] Report errors gracefully, with line and column numbers.
+- [doc] Write basic CLI documentation with example.
 
 ## 21 June 2019
 
