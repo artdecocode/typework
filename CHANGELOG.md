@@ -1,3 +1,9 @@
+## 21 July 2019
+
+### [0.1.1](https://github.com/artdecocode/typework/compare/v0.1.0...v0.1.1)
+
+- [feature] Report errors gracefully, with line and column numbers.
+
 ## 21 June 2019
 
 ### [0.1.0](https://github.com/artdecocode/typework/compare/v0.0.0-pre...v0.1.0)
