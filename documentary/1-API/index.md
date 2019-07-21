@@ -14,42 +14,51 @@ The config must include 3 properties:
 - <kbd>🎯 js</kbd> The project source code into where to place the original types into.
 - <kbd>📂 destination</kbd> Whenever the types import other files with `import('../types/')`, the target files will be copied to this folder.
 
-Next, the types' JSDoc declarations are copied from the entry into the source _JS_ file, so that they become a native part of the project. All other files found under relative import paths, will be placed into the _Destination_ folder.
+Upon run, the types' JSDoc declarations are copied from the entry into the source _JS_ file, so that they become a native part of the project. All other files found under relative import paths, will be placed into the _Destination_ folder.
 
 <table>
-<tr><th></th></tr>
-<!-- block-start -->
 <tr><td>
+ <a href="https://github.com/idiocc/goa/blob/master/types/index.js">entry.js</a></td>
+
+<td><md2html>
+_Typework_ will read the entry files, to detect the `/* typework */` market which indicates a single block of types which can be managed by the binary (only types within this block will be worked on).
+</md2html></td></tr>
+<!-- block-start -->
+<tr><td colspan="2">
 
 %EXAMPLE: node_modules/@typedefs/goa%
 </td></tr>
-<tr><td><md2html>
+<tr><td>
+ <a href="example/index2.js">index2.js</a>
+</td><td><md2html>
 
-_Typework_ will read the entry files, to detect the `/* typework */` market which indicates a single block of types which can be managed by the binary (only types within this block will be worked on).
-</md2html></td></tr>
+The JS file where the types need to be placed, will also contain the `/* typework */` marker, but only a single one. It should be at the end and allow for 1 extra line at the end (a file cannot finish with `*/`, only `*/\n`).</md2html></td></tr>
 <!-- /block-end -->
 <!-- block-start -->
-<tr><td>
+<tr><td colspan="2">
 
 %EXAMPLE: example%
+
+<details>
+<summary><kbd>Show Typework</kbd></summary>
+
 %EXAMPLE: example/index2%
+</details>
+
 </td></tr>
-<tr><td><md2html>
-
-The JS file where the types need to be placed, will also contain the `/* typework */` marker, but only a single one. It should be at the end and allow for 1 extra line at the end (cannot finish with the typework comment).
-
-</md2html></td></tr>
-<!-- /block-end -->
-<!-- block-start -->
 <tr><td>
-
-%TREE example/types%
-</td></tr>
-<tr><td><md2html>
+ <a href="example/types">types</a>
+</td><td><md2html>
 
 The purpose of _Typework_ is to vendor JSDoc across packages easily, so that the IDE documentation can be shown without relying on additional infrastructure like _Typings_. One of downside of current JSDoc is the lack of import statements, therefore _Typework_ is meant to work in environments which support `import`.
 
 </md2html></td></tr>
+<!-- /block-end -->
+<!-- block-start -->
+<tr><td colspan="2">
+
+%TREE example/types%
+</td></tr>
 <!-- /block-end -->
 </table>
 

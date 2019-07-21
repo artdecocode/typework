@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/typework.svg)](https://npmjs.org/package/typework)
 
-`typework` is used to Manage And Vendor JSDoc Types.
+_Typework_ is used to Manage And Vendor JSDoc Types. With the special `/* typework */` keyword, JSDoc type declarations can be moved across JS files, and imported files in types (`import('../types/context')`) will be copied across to the target project.
 
 ```sh
 yarn add typework
@@ -38,11 +38,14 @@ The config must include 3 properties:
 - <kbd>🎯 js</kbd> The project source code into where to place the original types into.
 - <kbd>📂 destination</kbd> Whenever the types import other files with `import('../types/')`, the target files will be copied to this folder.
 
-Next, the types' JSDoc declarations are copied from the entry into the source _JS_ file, so that they become a native part of the project. All other files found under relative import paths, will be placed into the _Destination_ folder.
+Upon run, the types' JSDoc declarations are copied from the entry into the source _JS_ file, so that they become a native part of the project. All other files found under relative import paths, will be placed into the _Destination_ folder.
 
 <table>
-<tr><th></th></tr>
 <tr><td>
+ <a href="https://github.com/idiocc/goa/blob/master/types/index.js">entry.js</a></td>
+
+<td><em>Typework</em> will read the entry files, to detect the <code>/* typework */</code> market which indicates a single block of types which can be managed by the binary (only types within this block will be worked on).</td></tr>
+<tr><td colspan="2">
 
 ```js
 export {}
@@ -60,8 +63,10 @@ export {}
  */
 ```
 </td></tr>
-<tr><td><em>Typework</em> will read the entry files, to detect the <code>/* typework */</code> market which indicates a single block of types which can be managed by the binary (only types within this block will be worked on).</td></tr>
 <tr><td>
+ <a href="example/index2.js">index2.js</a>
+</td><td>The JS file where the types need to be placed, will also contain the <code>/* typework */</code> marker, but only a single one. It should be at the end and allow for 1 extra line at the end (a file cannot finish with <code>*/</code>, only <code>*/\n</code>).</td></tr>
+<tr><td colspan="2">
 
 ```js
 const _Koa = require('./koa')
@@ -77,6 +82,10 @@ class Koa extends _Koa {
 
 module.exports = Koa
 ```
+
+<details>
+<summary><kbd>Show Typework</kbd></summary>
+
 ```js
 /* typework */
 /**
@@ -90,9 +99,13 @@ module.exports = Koa
  * @typedef {import('types/typedefs/response').ContextDelegatedResponse} ContextDelegatedResponse
  */
 ```
+</details>
+
 </td></tr>
-<tr><td>The JS file where the types need to be placed, will also contain the <code>/* typework */</code> marker, but only a single one. It should be at the end and allow for 1 extra line at the end (cannot finish with the typework comment).</td></tr>
 <tr><td>
+ <a href="example/types">types</a>
+</td><td>The purpose of <em>Typework</em> is to vendor JSDoc across packages easily, so that the IDE documentation can be shown without relying on additional infrastructure like <em>Typings</em>. One of downside of current JSDoc is the lack of import statements, therefore <em>Typework</em> is meant to work in environments which support <code>import</code>.</td></tr>
+<tr><td colspan="2">
 
 ```m
 example/types
@@ -106,7 +119,6 @@ example/types
     └── cookies.js
 ```
 </td></tr>
-<tr><td>The purpose of <em>Typework</em> is to vendor JSDoc across packages easily, so that the IDE documentation can be shown without relying on additional infrastructure like <em>Typings</em>. One of downside of current JSDoc is the lack of import statements, therefore <em>Typework</em> is meant to work in environments which support <code>import</code>.</td></tr>
 </table>
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
